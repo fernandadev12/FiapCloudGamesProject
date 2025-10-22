@@ -1,4 +1,4 @@
-﻿namespace FiapGames.Infra
+﻿namespace FiapCloud.Identity
 {
     public class Class1
     {

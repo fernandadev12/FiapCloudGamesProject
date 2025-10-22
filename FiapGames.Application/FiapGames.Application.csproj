@@ -7,13 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Handles\" />
-    <Folder Include="Agregates\" />
-    <Folder Include="Services\" />
+    <Folder Include="AutoMapper\" />
   </ItemGroup>
 
 </Project>

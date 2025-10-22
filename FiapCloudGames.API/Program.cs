@@ -1,8 +1,14 @@
+using System.Text;
 using FiapCloudGames.API.Services;
+using FiapGames.Core.Helper;
+using FiapGames.Infra.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var configurationBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -10,35 +16,71 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Injecao de dependencias
+builder.Services.AddDbContext<AppDataContext>(options =>
+{
+    string? connectionString = builder.Configuration.GetConnectionString("SqlServerConnection");
+    if (connectionString != null)
+    {
+        options.UseSqlServer(connectionString);
+    }
+    else
+    {
+        throw new InvalidOperationException("The SQL Server connection string is not configured.");
+    }
+}, ServiceLifetime.Scoped);
+
+// Injecao de dependenciasbuilder.Services.AddDbContext<AppContext>(options =>
+
 builder.Services.ApplicationServices();
 
-var jwtKey = builder.Configuration["Jwt:secretKey"];
-if (string.IsNullOrEmpty(jwtKey))
+
+var jwtSection = builder.Configuration.GetSection("Jwt");
+var secret = JwtAuthenticationGenerate.GenerateSecret(32);
+
+if (string.IsNullOrEmpty(secret))
 {
-    throw new InvalidOperationException("The JWT key is not configured. Please ensure 'Jwt:Key' is set in the configuration.");
+    throw new InvalidOperationException("Jwt:Secret não configurado.");
+}
+if (builder.Environment.IsDevelopment())
+{
+    jwtSection = builder.Configuration.GetSection("Jwt");
+    if (string.IsNullOrEmpty(jwtSection["Secret"]))
+    {
+        secret = JwtAuthenticationGenerate.GenerateSecret(32);
+        Console.WriteLine("JWT secret gerado (copie e persista com dotnet user-secrets ou variável de ambiente):");
+        Console.WriteLine(secret);
+    }
 }
 
-builder.Services.AddAuthentication(
-   opt =>
-   {
-       opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-       opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-   }).AddJwtBearer(
-       o =>
-       {
-           o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-           {
-               ValidateIssuer = true,
-               ValidateAudience = true,
-               ValidateLifetime = true,
-               ValidateIssuerSigningKey = true,
-               ValidIssuer = builder.Configuration["Jwt:Issuer"],
-               ValidAudience = builder.Configuration["Jwt:Audience"],
-               IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtKey)),
-               ClockSkew = TimeSpan.Zero
-           };
-       });
+var key = Encoding.UTF8.GetBytes(secret);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = builder.Environment.IsProduction();
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = !string.IsNullOrEmpty(jwtSection["Issuer"]),
+        ValidIssuer = jwtSection["Issuer"],
+        ValidateAudience = !string.IsNullOrEmpty(jwtSection["Audience"]),
+        ValidAudience = jwtSection["Audience"],
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.FromMinutes(1)
+    };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+});
+
 
 var app = builder.Build();
 

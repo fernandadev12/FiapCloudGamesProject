@@ -6,14 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Handles\" />
-    <Folder Include="Agregates\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
