@@ -1,23 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using FiapGames.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FiapGames.Infra.Data.Context
 {
     public class AppDataContext : DbContext
     {
-        private readonly IConfiguration _configuration;
         public AppDataContext(DbContextOptions<AppDataContext> options) : base(options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder config)
-        {
-            config.UseSqlServer(_configuration.GetConnectionString("ConnectionString"));
-        }
+
+        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Identity> Identity { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.ApplyConfiguration(new UsuarioConfiguration());  //adicionar outros modelsbuilder contexts]]
+            // modelBuilder.ApplyConfiguration(new UsuarioMap());
+            // modelBuilder.ApplyConfiguration(new IdentityMap());
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDataContext).Assembly);
-
         }
-    }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=localhost;Database=FiapGamesDb;User Id=sa;Password=022017;TrustServerCertificate=True;");
+            }
+        }
 
+    }
 }

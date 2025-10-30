@@ -1,34 +1,37 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace FiapGames.Core.Models
+namespace FiapGames.Domain.Models
 {
     public class Identity : ModelBase
     {
         public string Nome { get; private set; }
-        public string Token { get; private set; }
+        public Usuario? Usuario { get; private set; }
+        public int UsuarioId { get; private set; }
+        public string Token { get; private set; } = string.Empty;
         public UserRole Role { get; private set; }
-        public DateTime UltimoAcesso { get; private set; }
+        public DateTime? UltimoAcesso { get; private set; }
 
         protected Identity()
         {
             Nome = string.Empty;
-            Token = string.Empty;
             Role = UserRole.Usuario;
-            UltimoAcesso = DateTime.MinValue;
+            UltimoAcesso = null;
         }
 
         public Identity(string nome, string senha, UserRole role = UserRole.Usuario)
         {
-            Nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            SetPassword(senha ?? throw new ArgumentNullException(nameof(senha)));
+            ArgumentNullException.ThrowIfNull(nome);
+            ArgumentNullException.ThrowIfNull(senha);
+            Nome = nome;
+            SetPassword(senha);
             Role = role;
             UltimoAcesso = DateTime.UtcNow;
         }
 
         public void SetPassword(string senha)
         {
-            if (senha is null) throw new ArgumentNullException(nameof(senha));
+            ArgumentNullException.ThrowIfNull(senha);
             Token = ComputeSha256Hash(senha);
         }
 
@@ -48,7 +51,7 @@ namespace FiapGames.Core.Models
             using var sha = SHA256.Create();
             var bytes = Encoding.UTF8.GetBytes(raw);
             var hash = sha.ComputeHash(bytes);
-            return Convert.ToHexString(hash); // .NET 5+ disponível em .NET 8
+            return Convert.ToHexString(hash);
         }
     }
 

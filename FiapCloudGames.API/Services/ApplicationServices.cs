@@ -4,7 +4,6 @@
     {
         public static IServiceCollection ApplicationServices(this IServiceCollection services)
         {
-
             return services;
         }
 

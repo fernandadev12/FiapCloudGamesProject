@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Handles\" />
-    <Folder Include="Agregates\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
