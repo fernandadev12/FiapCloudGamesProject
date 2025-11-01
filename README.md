@@ -1,4 +1,4 @@
-# 🎮 FCG Tech Challenge - Fase 1
+# 🎮 Projeto Fiap Cloud Games - Tech Challenge - Fase 1
 ## FIAP Cloud Games Platform
 
 ### 📋 Requisitos Implementados
