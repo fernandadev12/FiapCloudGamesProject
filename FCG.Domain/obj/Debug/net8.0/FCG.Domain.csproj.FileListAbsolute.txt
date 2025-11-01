@@ -1,0 +1,12 @@
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/bin/Debug/net8.0/FCG.Domain.deps.json
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/bin/Debug/net8.0/FCG.Domain.dll
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/bin/Debug/net8.0/FCG.Domain.pdb
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/FCG.Domain.csproj.AssemblyReference.cache
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/FCG.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/FCG.Domain.AssemblyInfoInputs.cache
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/FCG.Domain.AssemblyInfo.cs
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/FCG.Domain.csproj.CoreCompileInputs.cache
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/FCG.Domain.dll
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/refint/FCG.Domain.dll
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/FCG.Domain.pdb
+/Users/carloseduardomagalhaes/Projetos/FCG-TechChallenge/FCG.Domain/obj/Debug/net8.0/ref/FCG.Domain.dll
