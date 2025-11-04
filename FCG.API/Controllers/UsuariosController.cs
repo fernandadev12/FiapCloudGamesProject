@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using FCG.Domain.Enums;
 using FCG.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +34,10 @@ public class UsuariosController : ControllerBase
         var usuarioDto = new Domain.DTOs.Usuario.UsuarioDTO
         {
             Id = usuario.Id,
-            Nome = usuario.Nome,
-            Email = usuario.Email,
-            Tipo = usuario.Tipo.ToString(),
-            DataCriacao = usuario.DataCriacao
+            Nome = usuario.Nome ?? "",
+            Email = usuario?.Email ?? "",
+            Tipo = usuario?.Tipo.ToString() ?? TipoUsuario.Usuario.ToString(),
+            DataCriacao = DateTime.Now
         };
 
         return Ok(usuarioDto);
