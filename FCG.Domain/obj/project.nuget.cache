@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ofi+1fGcWz0=",
+  "dgSpecHash": "FSNH5TLKCXw=",
   "success": true,
-  "projectFilePath": "C:\\Projetos\\POS_TECH\\App\\FiapCloudGamesProject\\FCG.Domain\\FCG.Domain.csproj",
+  "projectFilePath": "C:\\Projetos\\POS_TECH\\FCG.Domain\\FCG.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ferna\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\ferna\\.nuget\\packages\\fluentvalidation\\12.0.0\\fluentvalidation.12.0.0.nupkg.sha512",

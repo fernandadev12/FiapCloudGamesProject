@@ -63,4 +63,18 @@ public class UsuarioService : IUsuarioService
     {
         return Task.FromResult(BCrypt.Net.BCrypt.HashPassword(senha));
     }
+
+    public async Task<IEnumerable<UsuarioDTO>> ObterTodosUsuariosAsync()
+    {
+        var usuarios = await _usuarioRepository.ObterTodosAsync();
+        
+        return usuarios.Select(usuario => new UsuarioDTO
+        {
+            Id = usuario.Id,
+            Nome = usuario.Nome,
+            Email = usuario.Email,
+            Tipo = usuario.Tipo.ToString(),
+            DataCriacao = usuario.DataCriacao
+        });
+    }
 }

@@ -27,8 +27,9 @@ packages/
 
 # VS Code
 .vscode/
+.vscode
 .history/
-
+.vs
 # Rider
 .idea/
 

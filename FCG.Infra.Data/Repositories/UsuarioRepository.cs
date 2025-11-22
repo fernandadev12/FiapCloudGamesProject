@@ -43,4 +43,11 @@ public class UsuarioRepository : IUsuarioRepository
         return await _context.Usuarios
             .AnyAsync(u => u.Email == email);
     }
+
+    public async Task<IEnumerable<Usuario>> ObterTodosAsync()
+    {
+        return await _context.Usuarios
+            .OrderBy(u => u.Nome)
+            .ToListAsync();
+    }
 }

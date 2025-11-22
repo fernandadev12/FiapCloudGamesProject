@@ -1,18 +1,19 @@
-using System.Text;
-using FCG.API.Middlewares;
-using FCG.Application;
-using FCG.Application.Services;
+using FCG.Infra.Data.Context;
 using FCG.Domain.Interfaces;
 using FCG.Domain.Services;
-using FCG.Infra.Data.Context;
+using FCG.Application.Services;
 using FCG.Infra.Data.Repositories;
+using FCG.Application;
+using FCG.API.Middlewares;
 using FCG.Infra.Data.Seed;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -31,7 +32,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "FCG API", Version = "v1" });
-
+    
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
@@ -40,7 +41,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
-
+    
     c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         {
@@ -103,6 +104,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Usar CORS - IMPORTANTE: Deve vir antes de UseAuthentication e UseAuthorization
 app.UseCors("AllowAll");
 
 // Middlewares
@@ -118,7 +120,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.EnsureCreated();
-
+    
     // Seed inicial de dados
     await SeedData.InitializeAsync(scope.ServiceProvider);
 }

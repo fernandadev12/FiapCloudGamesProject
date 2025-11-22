@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ADs4MI3qcyQ=",
+  "dgSpecHash": "+o4KMiXHxvE=",
   "success": true,
-  "projectFilePath": "C:\\Projetos\\POS_TECH\\App\\FiapCloudGamesProject\\FCG.Application\\FCG.Application.csproj",
+  "projectFilePath": "C:\\Projetos\\POS_TECH\\FCG.Application\\FCG.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ferna\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ferna\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

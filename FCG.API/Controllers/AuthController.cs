@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
 using FCG.Domain.DTOs.Usuario;
 using FCG.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace FCG.API.Controllers;
 
@@ -46,7 +46,7 @@ public class AuthController : ControllerBase
         }
     }
 
-    [HttpGet("usuario-atual")]
+    [HttpGet("me")]
     [Authorize]
     public IActionResult GetUsuarioAtual()
     {

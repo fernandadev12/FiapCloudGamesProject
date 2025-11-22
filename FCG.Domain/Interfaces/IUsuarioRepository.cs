@@ -9,4 +9,5 @@ public interface IUsuarioRepository
     Task AdicionarAsync(Usuario usuario);
     Task AtualizarAsync(Usuario usuario);
     Task<bool> ExisteEmailAsync(string email);
+    Task<IEnumerable<Usuario>> ObterTodosAsync();
 }
